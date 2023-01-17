@@ -7,24 +7,6 @@
 
 import UIKit
 
-// MARK: Enum
-
-enum BordType {
-    case x
-    case o
-    case empty
-    
-    var image: UIImage? {
-        switch self {
-        case .x:
-            return UIImage(named: "icon.x")
-        case .o:
-            return UIImage(named: "icon.o")
-        case .empty:
-            return UIImage(systemName: "book")
-        }
-    }
-}
 class GameViewController: UIViewController {
     
     // MARK: Outlets
@@ -32,7 +14,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subLabel: UILabel!
     @IBOutlet var boardsButtons: [UIButton]!
-    
     
     // MARK: Symbols
     
@@ -47,30 +28,25 @@ class GameViewController: UIViewController {
             }
         }
     }
+    
     private var computerSymbol: BordType = .o
 
     override func viewDidLoad() {
         super.viewDidLoad()
         subLabel.text = ""
-        
         setupDefaultBoardState()
-        
-        if userSymbol == .o {
-            titleLabel.text = "Computer turn \(computerSymbol)"
-            computerTurn()
-        } else  {
-            titleLabel.text = "Your turn \(userSymbol)"
-        }
+        setLabelText()
     }
     
     // MARK:  @IBAction func
     
     @IBAction func tapOnTryAgain(_ sender: Any) {
         setupDefaultBoardState()
+        isButtonsEnabled(isEnabled: true)
+        titleLabel.text = "Your turn!"
         if userSymbol == .o {
             computerTurn()
         }
-        
     }
     
     @IBAction func tapOnBoardButtons(_ sender: Any) {
@@ -80,12 +56,15 @@ class GameViewController: UIViewController {
         
         let indexButton = clicketButton.tag
         clicketButton.setImage(UIImage(named: "icon.x"), for: .normal)
+        clicketButton.tintColor = .red
         
         let i = indexButton / 3, j = indexButton % 3
         if gameStatusArray[i][j] == .empty {
             gameStatusArray[i][j] = userSymbol
             updateBoard()
             if isWin(symbol: userSymbol) {
+                isButtonsEnabled(isEnabled: false)
+                titleLabel.text = "Congratulations!"
                 subLabel.text = "You win!"
                 return
             }
@@ -105,6 +84,15 @@ class GameViewController: UIViewController {
     
     // MARK:  private func
     
+    private func setLabelText() {
+        if userSymbol == .o {
+            titleLabel.text = "Computer turn!"
+            computerTurn()
+        } else  {
+            titleLabel.text = "Your turn!"
+        }
+    }
+    
     private func isWin(symbol: BordType) -> Bool {
         var diagonalCount = 0
         var diagonalCountTwo = 0
@@ -121,7 +109,7 @@ class GameViewController: UIViewController {
                 if gameStatusArray[i][j] == symbol && i == j {
                     diagonalCount += 1
                 }
-                if gameStatusArray.count - 1 - j == j {
+                if (gameStatusArray.count - 1) - i == j {
                     if gameStatusArray[i][j] == symbol {
                         diagonalCountTwo += 1
                     }
@@ -132,7 +120,9 @@ class GameViewController: UIViewController {
             }
         }
         if diagonalCount == 3 || diagonalCountTwo == 3 {
+           print(diagonalCountTwo)
             return true
+            
         }
         return false
     }
@@ -158,11 +148,13 @@ class GameViewController: UIViewController {
         gameStatusArray[i][j] = computerSymbol
         updateBoard()
         if isWin(symbol: computerSymbol) {
-            subLabel.text = "Computer wins. Fatality!"
+            isButtonsEnabled(isEnabled: false)
+            titleLabel.text = " Fatality!"
+            subLabel.text = "Computer wins!"
             return
         }
         if isEmptyCell {
-            titleLabel.text = "You turn"
+            titleLabel.text = "You turn!"
         } else {
             titleLabel.text = "Game is over("
         }
@@ -173,11 +165,12 @@ class GameViewController: UIViewController {
         boardsButtons.forEach { button in
             let i = button.tag / 3, j = button.tag % 3
             button.backgroundColor = .clear
+           
             button.setTitle("", for: .normal)
             subLabel.text = ""
             
-            
             button.setImage(gameStatusArray[i][j].image, for: .normal)
+            button.tintColor = gameStatusArray[i][j].tintColor
             
             if gameStatusArray[i][j] == .empty {
                 button.backgroundColor = .black.withAlphaComponent(0.4)
@@ -192,6 +185,12 @@ class GameViewController: UIViewController {
             [.empty, .empty, .empty]
         ]
         updateBoard()
+    }
+    
+    private func isButtonsEnabled(isEnabled: Bool) {
+        boardsButtons.forEach { button in
+            button.isEnabled = isEnabled
+        }
     }
 }
 

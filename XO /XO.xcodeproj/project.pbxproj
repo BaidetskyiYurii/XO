@@ -14,6 +14,7 @@
 		63C2DC14288727750090C215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63C2DC13288727750090C215 /* Assets.xcassets */; };
 		63C2DC17288727750090C215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C2DC15288727750090C215 /* LaunchScreen.storyboard */; };
 		63C2DC20288B1D5F0090C215 /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C2DC1F288B1D5F0090C215 /* StartGameViewController.swift */; };
+		63F0B6872977366E004B4903 /* BoardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B6862977366E004B4903 /* BoardType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		63C2DC16288727750090C215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63C2DC18288727750090C215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63C2DC1F288B1D5F0090C215 /* StartGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
+		63F0B6862977366E004B4903 /* BoardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			children = (
 				63C2DC1F288B1D5F0090C215 /* StartGameViewController.swift */,
 				63C2DC0E288727750090C215 /* GameViewController.swift */,
+				63F0B6862977366E004B4903 /* BoardType.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 				63C2DC0B288727750090C215 /* AppDelegate.swift in Sources */,
 				63C2DC0D288727750090C215 /* SceneDelegate.swift in Sources */,
 				63C2DC20288B1D5F0090C215 /* StartGameViewController.swift in Sources */,
+				63F0B6872977366E004B4903 /* BoardType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

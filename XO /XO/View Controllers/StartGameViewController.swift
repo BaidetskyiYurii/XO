@@ -8,25 +8,28 @@
 import UIKit
 
 class StartGameViewController: UIViewController {
+    
     private let chooseXSegueIdentifier = "chooseX"
     private let chooseOSegueIdentifier = "chooseO"
 
+    @IBOutlet weak var chooseOButtonOutlet: UIButton! {
+        didSet {
+            chooseOButtonOutlet.layer.cornerRadius = 0.5 * chooseOButtonOutlet.bounds.size.width
+        }
+    }
+    @IBOutlet weak var chooseXButtonOutlet: UIButton!{
+        didSet {
+            chooseXButtonOutlet.layer.cornerRadius = 0.5 * chooseXButtonOutlet.bounds.size.width
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
     }
     
-
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let gameVS = segue.destination as? GameViewController else {
             return
         }
-        
         if segue.identifier == chooseXSegueIdentifier {
             gameVS.userSymbol = .x
         } else if segue.identifier == chooseOSegueIdentifier {
@@ -34,6 +37,4 @@ class StartGameViewController: UIViewController {
         }
         
     }
-    
-
 }
